@@ -8,7 +8,8 @@ pipeline {
                 // }
                 stage("Unit tests") {
                     steps{
-                        bat 'gradlew clean test'
+                        //bat 'gradlew clean test'
+                        bat 'gradlew testDebugUnitTest'
                     }
                 }
                 stage("Static Code Analysis") {
