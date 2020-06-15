@@ -11,6 +11,11 @@ pipeline {
                         bat 'gradlew clean test'
                         //bat 'gradlew testDebugUnitTest'
                     }
+                           post{
+                                      always{
+                                                 junit 'app/build/reports/tests/*.xml'
+                                      }
+                           }
                 }
                 stage("Static Code Analysis") {
                     steps{
