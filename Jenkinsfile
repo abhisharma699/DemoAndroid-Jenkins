@@ -8,15 +8,31 @@ pipeline {
                 // }
                 stage("Unit tests") {
                     steps{
-                        bat 'gradlew test'
+                        bat 'gradlew clean test'
+                        //bat 'gradlew testDebugUnitTest'
                     }
+                           post{
+                                      always{
+                                                 junit 'app/build/reports/tests/*.xml'
+                                      }
+                           }
+                }
+                stage("Static Code Analysis") {
+                    steps{
+                        bat 'gradlew clean lint'
+                    }
+                            post {
+                always {
+                    androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
+                }
+            }
                 }
                 stage("Build") {
                     steps {
-                        bat 'gradlew clean build -x test'
+                        bat 'gradlew clean build -x test -x lint'
                     }
                 }
-                stage('Static Code Analysis') {
+                /*stage('Security Analysis') {
                     steps{
                         appscan application: '75d946aa-1f67-4f74-a4c3-dc9e9341d28f', 
                         credentials: 'HCL APP Center api', 
@@ -37,7 +53,7 @@ pipeline {
                         ownerName: 'ritjain2', 
                         pathToApp: 'app/build/outputs/apk/debug/app-debug.apk'
                     }
-                }
+                }*/
            }
       }
 
