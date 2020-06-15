@@ -15,6 +15,18 @@ pipeline {
                     steps{
                         bat 'gradlew clean lint'
                     }
+                            post {
+                always {
+                    publishHTML(target:[
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: 'app/build/reports',
+            reportFiles: 'lint-results.html',
+            reportName: 'Code Analysis'
+          ])
+                }
+            }
                 }
                 stage("Build") {
                     steps {
