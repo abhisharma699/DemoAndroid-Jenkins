@@ -17,14 +17,7 @@ pipeline {
                     }
                             post {
                 always {
-                    publishHTML(target:[
-            allowMissing: false,
-            alwaysLinkToLastBuild: false,
-            keepAll: true,
-            reportDir: 'app/build/reports',
-            reportFiles: 'lint-results.html',
-            reportName: 'Code Analysis'
-          ])
+                    androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
                 }
             }
                 }
