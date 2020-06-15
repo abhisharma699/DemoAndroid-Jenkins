@@ -32,7 +32,7 @@ pipeline {
                         bat 'gradlew clean build -x test -x lint'
                     }
                 }
-                /*stage('Security Analysis') {
+                stage('Security Analysis') {
                     steps{
                         appscan application: '75d946aa-1f67-4f74-a4c3-dc9e9341d28f', 
                         credentials: 'HCL APP Center api', 
@@ -53,7 +53,7 @@ pipeline {
                         ownerName: 'ritjain2', 
                         pathToApp: 'app/build/outputs/apk/debug/app-debug.apk'
                     }
-                }*/
+                }
            }
       }
 
