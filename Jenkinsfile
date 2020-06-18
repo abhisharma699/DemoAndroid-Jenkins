@@ -38,7 +38,7 @@ stage('SonarQube analysis') {
                     scannerHome = tool 'sonarqube';
                 }
                 withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
-                    bat "gradlew sonarqube -Dsonar.projectKey=android-test"
+                    bat "gradlew sonarqube -Dsonar.projectKey=android-demo-app"
                 }
             }
         }
