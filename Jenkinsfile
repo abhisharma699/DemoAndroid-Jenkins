@@ -32,9 +32,6 @@ pipeline {
                         bat 'gradlew clean build -x test -x lint'
                     }
                 }
-                [10:41 AM] Utsav Tulsyan
-    
-
 stage('SonarQube analysis') {
             steps {
                 script {
