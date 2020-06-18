@@ -32,7 +32,31 @@ pipeline {
                         bat 'gradlew clean build -x test -x lint'
                     }
                 }
-                stage('Security Analysis') {
+                [10:41 AM] Utsav Tulsyan
+    
+
+stage('SonarQube analysis') {
+            steps {
+                script {
+                    scannerHome = tool 'sonarqube';
+                }
+                withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
+                    bat "gradlew sonarqube -Dsonar.projectKey=android-test"
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+
+                /*stage('Security Analysis') {
                     steps{
                         appscan application: '75d946aa-1f67-4f74-a4c3-dc9e9341d28f', 
                         credentials: 'HCL APP Center api', 
@@ -41,7 +65,7 @@ pipeline {
                         type: 'Mobile Analyzer', 
                         wait: true
                     }
-                }
+                }*/
                 stage('Publish to App Center') {
                     environment {
                         APPCENTER_API_TOKEN = '553f659a621e5fa1dcdfecb8132bc60ee8ae3ce8'
