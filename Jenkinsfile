@@ -8,7 +8,7 @@ pipeline {
                 // }
                 stage("Unit tests") {
                     steps{
-                        sh 'gradlew clean test'
+                        sh './gradlew clean test'
                         //bat 'gradlew testDebugUnitTest'
                     }
                            post{
@@ -19,7 +19,7 @@ pipeline {
                 }
                 stage("Static Code Analysis") {
                     steps{
-                        sh 'gradlew clean lint'
+                        sh './gradlew clean lint'
                     }
                             post {
                 always {
@@ -29,7 +29,7 @@ pipeline {
                 }
                 stage("Build") {
                     steps {
-                        sh 'gradlew clean build -x test -x lint'
+                        sh './gradlew clean build -x test -x lint'
                     }
                 }
 stage('SonarQube analysis') {
@@ -38,7 +38,7 @@ stage('SonarQube analysis') {
                     scannerHome = tool 'sonarqube';
                 }
                 withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
-                    sh "gradlew sonarqube -Dsonar.projectKey=android-demo-app"
+                    sh "./gradlew sonarqube -Dsonar.projectKey=android-demo-app"
                 }
             }
         }
