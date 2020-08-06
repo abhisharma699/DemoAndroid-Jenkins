@@ -33,25 +33,25 @@ pipeline {
                         sh './gradlew clean build -x test -x lint'
                     }
                 }
-stage('SonarQube analysis') {
-            steps {
-                script {
-                    scannerHome = tool 'sonarqube';
-                }
-                withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
-                    sh "./gradlew sonarqube -Dsonar.projectKey=android-demo-app"
-                }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+// stage('SonarQube analysis') {
+//             steps {
+//                 script {
+//                     scannerHome = tool 'sonarqube';
+//                 }
+//                 withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
+//                     sh "./gradlew sonarqube -Dsonar.projectKey=android-demo-app"
+//                 }
+//             }
+//         }
+//         stage('Quality Gate') {
+//             steps {
+//                 timeout(time: 1, unit: 'HOURS') {
+//                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+//                     // true = set pipeline to UNSTABLE, false = don't
+//                     waitForQualityGate abortPipeline: true
+//                 }
+//             }
+//         }
 
 
                 /*stage('Security Analysis') {
