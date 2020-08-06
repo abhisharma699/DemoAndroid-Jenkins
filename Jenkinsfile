@@ -8,6 +8,7 @@ pipeline {
                 // }
                 stage("Unit tests") {
                     steps{
+                        sh 'chmod +x gradlew'
                         sh './gradlew clean test'
                         //bat 'gradlew testDebugUnitTest'
                     }
