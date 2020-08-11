@@ -1,0 +1,68 @@
+# This file contains the fastlane.tools configuration - BBL Modern Android App
+
+output_dir="output/"
+default_platform(:android)
+
+
+platform :android do
+  desc "Gradle Cache Clear"
+  lane :clear do
+    gradle(task: "clean",
+    project_dir: './',
+    print_command_output:true)
+  end
+
+  desc "Build New Version"
+  lane :build do |options|
+    versionCode = options[:build_number]
+    build_number = ENV['BUILD_NUMBER']
+    puts versionCode
+    gradle(task: "build -x test -x lint--info --stacktrace",
+    project_dir: './',
+    print_command_output:true,
+    )
+  end
+  
+  desc "Code Coverage"
+  lane :code_coverage do
+    gradle(task: "assemble$CONFIG testDebugUnitTest jacocoTestReport sonarqube",
+    project_dir: 'source/',
+    print_command_output:true
+    )
+  end
+  
+    # ------------------------ Upload Android build on Appcenter app
+    lane :upload_to_appcenter do |options|
+      build_number = ENV['BUILD_NUMBER']
+      scm_change = options[:scm_change]
+      appcenter_upload(
+          api_token: "553f659a621e5fa1dcdfecb8132bc60ee8ae3ce8",
+          owner_name: "ritjain2",
+          app_name: "android-demo",
+          apk: "app/build/outputs/apk/debug/app-debug-#{build_number}.apk",
+          destinations: "Collaborators, testers",
+          destination_type: "group",
+          release_notes: scm_change,
+          notify_testers: "true"
+      )
+    end
+    # ------------------------ Upload Sapient Android build on Appcenter app
+    lane :ps_appcenter_upload do |options|
+      build_number = ENV['BUILD_NUMBER']
+      destination = ENV['APPCENTER_GROUP']
+      config = ENV['CONFIG']
+      env_name = ENV['ENVIRONMENT']
+      scm_change = options[:scm_change]
+      appcenter_upload(
+      #   api_token: "a99657f0828198da472a2ae576467325dad322d5",
+          api_token: "60fe3fbb4836c86fa3322c1de8d9d6149e43f7aa",
+          owner_name: "ModernApp-B",
+          app_name: ENV['APPCENTER_APP_NAME'],
+          apk: "./source/phone/build/outputs/phone-#{env_name}-#{build_number}.apk",
+          destinations: destination,
+          destination_type: "group",
+          release_notes: scm_change,
+          notify_testers: "true"
+      )
+    end
+end

@@ -1,38 +1,53 @@
 pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10', daysToKeepStr: '30'))
+        ansiColor('xterm')
+        disableConcurrentBuilds()
+    }
            agent any
            stages {
-                // stage("Git checkout") {
-                //      steps {
-                //           git "https://github.com/Ritvikjain/DemoAndroid.git"
-                //      }
-                // }
+             stage("Git checkout") {
+                  steps {
+                      git "https://github.com/deepforu47/DemoAndroid-Jenkins.git"
+                  }
+             }
                 stage("Unit tests") {
                     steps{
-                        sh 'chmod +x gradlew'
-                        sh './gradlew clean test'
-                        //bat 'gradlew testDebugUnitTest'
+                            sh 'chmod +x gradlew'
+                            sh './gradlew clean test'
+                            //bat 'gradlew testDebugUnitTest'
                     }
-                           post{
-                                      always{
-                                                 junit 'app/build/test-results/testDebugUnitTest/*.xml'
-                                      }
-                           }
+                    post{
+                        always{
+                                    junit 'app/build/test-results/testDebugUnitTest/*.xml'
+                        }
+                    }
                 }
                 stage("Static Code Analysis") {
                     steps{
-                        sh './gradlew clean lint'
+                            sh './gradlew clean lint'
                     }
-                            post {
-                always {
-                    androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
+                    post {
+                        always {
+                            androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
+                        }
+                    }
                 }
-            }
-                }
-                stage("Build") {
+/*                stage("Build") {
                     steps {
                         sh './gradlew clean build -x test -x lint'
                     }
+                } */
+		// Build App
+            stage('Build App') {
+                steps{
+                    dir('DemoAndroid-Jenkins'){
+                        script {
+                            sh 'set +x && /usr/local/bin/fastlane build build_number:"${BUILD_NUMBER}"'
+                        }
+                    }
                 }
+            }
 // stage('SonarQube analysis') {
 //             steps {
 //                 script {
@@ -63,7 +78,8 @@ pipeline {
                         type: 'Mobile Analyzer', 
                         wait: true
                     }
-                }*/
+                }
+
                 stage('Publish to App Center') {
                     environment {
                         APPCENTER_API_TOKEN = '553f659a621e5fa1dcdfecb8132bc60ee8ae3ce8'
@@ -75,7 +91,15 @@ pipeline {
                         ownerName: 'ritjain2', 
                         pathToApp: 'app/build/outputs/apk/debug/app-debug.apk'
                     }
-                }
+                } */
+                stage('Appcenter Upload') {
+                    steps{
+                        dir('DemoAndroid-Jenkins'){
+                            sh '/usr/local/bin/fastlane upload_to_appcenter scm_change:"$(git log -5 HEAD --no-merges --pretty=format:%s)"'
+                    
+                        }
+                    }
+                } 
            }
       }
 
