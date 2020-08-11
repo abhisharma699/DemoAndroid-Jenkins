@@ -45,6 +45,7 @@ pipeline {
                 steps{
                         script {
                             sh 'set +x && /usr/local/bin/fastlane build build_number:"${BUILD_NUMBER}"'
+                            sh 'mv ./app/build/outputs/apk/debug/app-debug.apk ./app/build/outputs/apk/debug/app-debug-${BUILD_NUMBER}.apk '
                         }
                     
                 }
