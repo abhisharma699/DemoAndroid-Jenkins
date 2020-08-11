@@ -46,8 +46,8 @@ platform :android do
           api_token: "553f659a621e5fa1dcdfecb8132bc60ee8ae3ce8",
           owner_name: "ritjain2",
           app_name: "android-demo",
-          apk: "app/build/outputs/apk/debug/app-debug-#{build_number}.apk",
-          destinations: "Collaborators, testers",
+          apk: "./app/build/outputs/apk/debug/app-debug.apk",
+          destinations: "Collaborators",
           destination_type: "group",
           release_notes: scm_change,
           notify_testers: "true"
