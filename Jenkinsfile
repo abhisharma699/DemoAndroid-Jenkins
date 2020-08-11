@@ -1,7 +1,7 @@
 pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10', daysToKeepStr: '30'))
-        ansiColor('xterm')
+        //ansiColor('xterm')
         disableConcurrentBuilds()
     }
            agent any
@@ -13,8 +13,9 @@ pipeline {
              }
                 stage("Unit tests") {
                     steps{
-                            sh 'chmod +x gradlew'
-                            sh './gradlew clean test'
+                            //sh 'chmod +x gradlew'
+                            //sh './gradlew clean test'
+                            sh 'set +x && /usr/local/bin/fastlane clear"'
                             //bat 'gradlew testDebugUnitTest'
                     }
                     post{
@@ -41,11 +42,10 @@ pipeline {
 		// Build App
             stage('Build App') {
                 steps{
-                    dir('DemoAndroid-Jenkins'){
                         script {
                             sh 'set +x && /usr/local/bin/fastlane build build_number:"${BUILD_NUMBER}"'
                         }
-                    }
+                    
                 }
             }
 // stage('SonarQube analysis') {

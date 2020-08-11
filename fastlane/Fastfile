@@ -7,7 +7,7 @@ default_platform(:android)
 platform :android do
   desc "Gradle Cache Clear"
   lane :clear do
-    gradle(task: "clean",
+    gradle(task: "clean test",
     project_dir: './',
     print_command_output:true)
   end
@@ -17,7 +17,7 @@ platform :android do
     versionCode = options[:build_number]
     build_number = ENV['BUILD_NUMBER']
     puts versionCode
-    gradle(task: "build -x test -x lint--info --stacktrace",
+    gradle(task: "build -x test -x lint --info --stacktrace",
     project_dir: './',
     print_command_output:true,
     )
