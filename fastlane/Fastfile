@@ -6,7 +6,7 @@ default_platform(:android)
 
 platform :android do
   desc "Gradle Unit Test"
-  lane :unit-test do
+  lane :unit_test do
     gradle(task: "clean test",
     project_dir: './',
     print_command_output:true)

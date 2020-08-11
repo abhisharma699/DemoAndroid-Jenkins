@@ -15,7 +15,7 @@ pipeline {
                     steps{
                             //sh 'chmod +x gradlew'
                             //sh './gradlew clean test'
-                            sh 'set +x && /usr/local/bin/fastlane unit-test'
+                            sh 'set +x && /usr/local/bin/fastlane unit_test'
                             //bat 'gradlew testDebugUnitTest'
                     }
                     post{
