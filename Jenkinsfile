@@ -15,7 +15,7 @@ pipeline {
                     steps{
                             //sh 'chmod +x gradlew'
                             //sh './gradlew clean test'
-                            sh 'set +x && /usr/local/bin/fastlane clear"'
+                            sh 'set +x && /usr/local/bin/fastlane unit-test'
                             //bat 'gradlew testDebugUnitTest'
                     }
                     post{
@@ -26,7 +26,8 @@ pipeline {
                 }
                 stage("Static Code Analysis") {
                     steps{
-                            sh './gradlew clean lint'
+                            //sh './gradlew clean lint'
+                            sh 'set +x && /usr/local/bin/fastlane SCA'
                     }
                     post {
                         always {
@@ -94,10 +95,8 @@ pipeline {
                 } */
                 stage('Appcenter Upload') {
                     steps{
-                        dir('DemoAndroid-Jenkins'){
                             sh '/usr/local/bin/fastlane upload_to_appcenter scm_change:"$(git log -5 HEAD --no-merges --pretty=format:%s)"'
                     
-                        }
                     }
                 } 
            }

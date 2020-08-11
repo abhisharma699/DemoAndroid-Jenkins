@@ -5,9 +5,16 @@ default_platform(:android)
 
 
 platform :android do
-  desc "Gradle Cache Clear"
-  lane :clear do
+  desc "Gradle Unit Test"
+  lane :unit-test do
     gradle(task: "clean test",
+    project_dir: './',
+    print_command_output:true)
+  end
+
+  desc "Gradle Static Code Analysis"
+  lane :SCA do
+    gradle(task: "clean lint",
     project_dir: './',
     print_command_output:true)
   end
