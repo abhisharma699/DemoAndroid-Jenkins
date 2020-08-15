@@ -102,6 +102,9 @@ pipeline {
                         }
                     } */
                     stage('Appcenter Upload') {
+                        environment {
+                                APPCENTER_API_TOKEN = credentials('appcenter-api-token')
+                        }
                         steps{
                                 sh '/usr/local/bin/fastlane upload_to_appcenter scm_change:"$(git log -5 HEAD --no-merges --pretty=format:%s)"'
                         
