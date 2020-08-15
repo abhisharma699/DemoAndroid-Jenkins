@@ -55,7 +55,7 @@ stage('SonarQube analysis') {
 
                 /*stage('Security Analysis') {
                     steps{
-                        appscan application: '75d946aa-1f67-4f74-a4c3-dc9e9341d28f', 
+                        appscan application: 'dummy', 
                         credentials: 'HCL APP Center api', 
                         name: 'Adnroid Security', 
                         scanner: mobile_analyzer(hasOptions: false, target: 'C:/Program Files (x86)/Jenkins/workspace/AndroidProject/app/build/outputs/apk/debug/app-debug.apk'), 
