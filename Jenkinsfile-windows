@@ -65,7 +65,7 @@ stage('SonarQube analysis') {
                 }*/
                 stage('Publish to App Center') {
                     environment {
-                        APPCENTER_API_TOKEN = '553f659a621e5fa1dcdfecb8132bc60ee8ae3ce8'
+                        APPCENTER_API_TOKEN = 'dummy'
                     }
                     steps {
                         appCenter apiToken: APPCENTER_API_TOKEN, 
