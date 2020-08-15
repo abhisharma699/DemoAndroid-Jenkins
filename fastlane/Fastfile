@@ -41,9 +41,10 @@ platform :android do
     # ------------------------ Upload Android build on Appcenter app
     lane :upload_to_appcenter do |options|
       build_number = ENV['BUILD_NUMBER']
+      APPCENTER_API_TOKEN = ENV['APPCENTER_API_TOKEN']
       scm_change = options[:scm_change]
       appcenter_upload(
-          api_token: "#{APPCENTER_API_TOKEN}",
+          api_token: APPCENTER_API_TOKEN,
           #api_token: "553f659a621e5fa1dcdfecb8132bc60ee8ae3ce8",
           owner_name: "ritjain2",
           app_name: "android-demo",
