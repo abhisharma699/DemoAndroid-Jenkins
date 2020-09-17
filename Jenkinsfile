@@ -49,7 +49,7 @@ pipeline {
                         def scannerHome=tool 'Sonar Scanner 4.4.0';
                         withSonarQubeEnv('SonarServer') { // If you have configured more than one global server connection, you can specify its name
                             //sh "./gradlew sonarqube -Dsonar.projectKey=android-demo-app"
-                            sh "${scannerHome}/bin/sonar-scanner"
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=android-demo-app"
                         }
                     }   
                 }
