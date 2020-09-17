@@ -45,9 +45,9 @@ pipeline {
             stage('SonarQube analysis') {
                 steps {
                     script {
-                        scannerHome = tool 'sonarqube';
+                        scannerHome = tool 'sonarscanner';
                     }
-                    withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
+                    withSonarQubeEnv('SonarServer') { // If you have configured more than one global server connection, you can specify its name
                         sh "./gradlew sonarqube -Dsonar.projectKey=android-demo-app"
                     }
                 }
