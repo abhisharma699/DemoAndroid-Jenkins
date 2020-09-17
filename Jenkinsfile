@@ -7,7 +7,7 @@ pipeline {
     environment {
         JAVA_HOME = '/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
  //       ANDROID_HOME = '/Users/devops/Library/Android/sdk'
-        scannerHome = "/Users/devops/sonar/sonar-scanner-3.3.0.1492-macosx"
+        //scannerHome = "/Users/devops/sonar/sonar-scanner-3.3.0.1492-macosx"
  //       VERSION_CODE="${BUILD_NUMBER}"
  //   	ARXAN="/Applications/arxan/bin/"        
     }
@@ -31,7 +31,7 @@ pipeline {
                     }
                 }
             }
-            stage("Static Code Analysis") {
+ /*           stage("Static Code Analysis") {
                 steps{
                         //sh './gradlew clean lint'
                         sh 'set +x && /usr/local/bin/fastlane SCA'
@@ -41,7 +41,8 @@ pipeline {
                         androidLint canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'app/build/reports/lint-results.xml', unHealthy: ''
                     }
                 }
-            }
+            } 
+            */
             stage('SonarQube analysis') {
                 steps {
                     script {
