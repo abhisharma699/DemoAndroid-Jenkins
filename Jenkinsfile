@@ -67,7 +67,7 @@ pipeline {
                         }
                     } */
             // Build App
-                stage('Build App') {
+/*                stage('Build App') {
                     steps{
                             script {
                                 sh 'set +x && /usr/local/bin/fastlane build build_number:"${BUILD_NUMBER}"'
@@ -85,7 +85,7 @@ pipeline {
                                 sh '/usr/local/bin/fastlane upload_to_appcenter scm_change:"$(git log -5 HEAD --no-merges --pretty=format:%s)"'
                         
                         }
-                    } 
+                    } */
             }
       }
 
