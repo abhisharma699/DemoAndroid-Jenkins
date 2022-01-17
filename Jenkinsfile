@@ -3,7 +3,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10', daysToKeepStr: '30'))
         //ansiColor('xterm')
         disableConcurrentBuilds()
-        //pipelineTriggers([pollSCM('H * * * *')])
+    }
+    triggers { 
+      pollSCM('H * * * *') 
     }
    
         agent any
