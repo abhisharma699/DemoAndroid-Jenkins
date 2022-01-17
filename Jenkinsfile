@@ -1,16 +1,17 @@
-pipeline {
+ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10', daysToKeepStr: '30'))
         //ansiColor('xterm')
         disableConcurrentBuilds()
     }
-    environment {
-        JAVA_HOME = '/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
+    properties([pipelineTriggers([pollSCM('H * * * *')])])
+  //  environment {
+  //      JAVA_HOME = '/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
  //       ANDROID_HOME = '/Users/devops/Library/Android/sdk'
         //scannerHome = "/Users/devops/sonar/sonar-scanner-3.3.0.1492-macosx"
  //       VERSION_CODE="${BUILD_NUMBER}"
  //   	ARXAN="/Applications/arxan/bin/"        
-    }
+   // }
         agent any
         stages {
             stage("Git checkout") {
