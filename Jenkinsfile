@@ -3,12 +3,16 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10', daysToKeepStr: '30'))
         //ansiColor('xterm')
         disableConcurrentBuilds()
+        //pipelineTriggers([pollSCM('H * * * *')])
     }
-    properties([pipelineTriggers([pollSCM('H * * * *')])])
+   
         agent any
                 stages {
             stage("Git checkout") {
                 steps {
+                    script {
+                        properties([pipelineTriggers([pollSCM('H * * * *')])])
+                    }
                     git "https://github.com/deepforu47/DemoAndroid-Jenkins.git"
                 }
             }
@@ -22,10 +26,9 @@ pipeline {
             // Build App
                 stage('Build App') {
                     steps{
-                            sh 'echo "Hello Build Stage'
+                            sh 'echo "Hello Build Stage"'
                         
                     }
                 }
             }
       }
-
