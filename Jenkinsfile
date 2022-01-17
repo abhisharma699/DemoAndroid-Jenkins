@@ -21,7 +21,7 @@ pipeline {
             stage("Unit tests") {
                 steps{
                        
-                        sh 'echo "Hello Unit Test Stage"'
+                        sh 'echo "Hello Unit Test Stage 1"'
                        
                 }
             }
