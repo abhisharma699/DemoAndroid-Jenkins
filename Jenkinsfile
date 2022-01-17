@@ -12,9 +12,9 @@ pipeline {
                 stages {
             stage("Git checkout") {
                 steps {
-                    script {
-                        properties([pipelineTriggers([pollSCM('H * * * *')])])
-                    }
+//                     script {
+//                         properties([pipelineTriggers([pollSCM('H * * * *')])])
+//                     }
                     git "https://github.com/deepforu47/DemoAndroid-Jenkins.git"
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
             // Build App
                 stage('Build App') {
                     steps{
-                            sh 'echo "Hello Build Stage"'
+                            sh 'echo "Hello Build Stage again"'
                         
                     }
                 }
